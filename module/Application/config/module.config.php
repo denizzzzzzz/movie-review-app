@@ -38,6 +38,25 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
+    'service_manager' => [
+        'factories' => [
+            Seeder\MovieSeeder::class => function($container) {
+                return new Seeder\MovieSeeder(
+                    $container->get('doctrine.entitymanager.orm_default')
+                );
+            },
+            Command\SeedMoviesCommand::class => function($container) {
+                return new Command\SeedMoviesCommand(
+                    $container->get(Seeder\MovieSeeder::class)
+                );
+            },
+        ],
+    ],
+    'laminas-cli' => [
+        'commands' => [
+            'app:seed-movies' => Command\SeedMoviesCommand::class,
+        ],
+    ],
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions'       => true,

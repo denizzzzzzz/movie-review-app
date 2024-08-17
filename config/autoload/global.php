@@ -13,5 +13,19 @@
  */
 
 return [
-    // ...
+    'doctrine' => [
+        'driver' => [
+            'application_entities' => [
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../../module/Application/src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    'Application\Entity' => 'application_entities'
+                ]
+            ]
+        ]
+    ],
+    // other configurations...
 ];
